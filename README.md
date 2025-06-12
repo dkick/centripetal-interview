@@ -1,6 +1,8 @@
 # centripetal-interview
 
-Bonus Points: Use polylith
+[Clojure Homework Question](./doc/Centripetal-ClojureCodingQuestion.pdf)
+
+## Bonus Points: Use polylith
 
 Polylith is something that I meant to get around to using some day but
 I haven't had the chance. This seems like a good opportunity.
@@ -13,7 +15,7 @@ Polylith has some [great
 documentation](https://polylith.gitbook.io/polylith). And some
 excellent, very relevant examples:
 
-* https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app/blob/master/readme.md
+* https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app
 * https://github.com/seancorfield/usermanager-example
 
 
