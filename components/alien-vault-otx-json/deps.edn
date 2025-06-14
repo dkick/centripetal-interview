@@ -1,5 +1,6 @@
 {:paths   ["src" "resources"]
  :deps    {camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.3"}
+           meander/epsilon  {:mvn/version "0.0.650"}
            metosin/jsonista {:mvn/version "0.3.13"}
            metosin/malli    {:mvn/version "0.19.1"}}
  :aliases {:test {:extra-paths ["test"]

@@ -1,15 +1,17 @@
 (ns ai.centripetal.alien-vault-otx-json.core
   (:require
     [camel-snake-kebab.core :as csk]
+    [clojure.java.io :as io]
     [jsonista.core :as json]
-    [malli.core :as m]))
+    [malli.core :as m]
+    [meander.epsilon :as e]))
 
 (def mapper
   (json/object-mapper
    {:decode-key-fn csk/->kebab-case-keyword
     :encode-key-fn csk/->snake_case_string}))
 
-;;; IOC: Indicator of Compromise
+;;; IOC: Indicator Of Compromise
 
 (def IocJsonMap
   (m/schema
@@ -76,3 +78,56 @@
 
 (def ioc-map?
   (m/validator IocMap))
+
+(defn unique-ioc-map-ids?
+  [ioc-seq]
+  (->> ioc-seq
+       (map :id)
+       frequencies
+       vals
+       (every? #(= % 1))))
+
+(defn make-ioc-seq []
+  (-> "alien-vault-otx-json/indicators.json"
+      io/resource
+      slurp
+      (json/read-value mapper)))
+
+(defn ensure-ioc-seq [ioc-seq]
+  {:pre [(every? ioc-map? ioc-seq)
+         (unique-ioc-map-ids? ioc-seq)]}
+  ioc-seq)
+
+(def ioc-seq
+  (ensure-ioc-seq
+   (make-ioc-seq)))
+
+(defn get-ioc
+  [ioc-id &
+   {:keys [ioc-seq]
+    :or   {ioc-seq ioc-seq}}]
+  (throw (ex-info "N/A"
+                  {:id      ioc-id
+                   :ioc-seq ioc-seq})))
+
+(defn ioc-indicator-id-counts [ioc-seq]
+  (->> ioc-seq
+       (mapcat :indicators)
+       (map :id)
+       frequencies))
+
+(defn get-ioc-indicator
+  [ioc-indicator-id &
+   {:keys [ioc-seq]
+    :or   {ioc-seq ioc-seq}}]
+  (throw (ex-info "N/A"
+                  {:ioc-indicator-id ioc-indicator-id
+                   :ioc-seq ioc-seq})))
+
+(defn get-ioc-indicator-types
+  [ioc-indicator-type &
+   {:keys [ioc-seq]
+    :or   {ioc-seq ioc-seq}}]
+  (throw (ex-info "N/A"
+                  {:ioc-indicator-type ioc-indicator-type
+                   :ioc-seq ioc-seq})))

@@ -17,13 +17,26 @@
           (as-> $ (every? subject/ioc-json-map? $)))))
 
 (deftest ioc-map-test
-  (is (-> "alien-vault-otx-json/indicators.json"
-          io/resource
-          slurp
-          (json/read-value subject/mapper)
-          (as-> $ (every? subject/ioc-map? $)))))
+  (is (every? subject/ioc-map? (subject/make-ioc-seq))))
+
+(deftest unique-ioc-ids-test
+  (is (subject/unique-ioc-map-ids? (subject/make-ioc-seq))))
+
+(deftest duplicate-ioc-indicator-ids-test
+  (is (->> (subject/ioc-indicator-id-counts subject/ioc-seq)
+           vals
+           (some #(> % 1)))))
 
 (comment
+  (subject/get-ioc nil)
+
+  (subject/ensure-ioc-seq
+   (subject/make-ioc-seq))
+
+  (subject/ioc-indicator-id-counts subject/ioc-seq)
+
+  (first subject/ioc-seq)
+
   (-> "alien-vault-otx-json/indicators.json"
       io/resource
       slurp
