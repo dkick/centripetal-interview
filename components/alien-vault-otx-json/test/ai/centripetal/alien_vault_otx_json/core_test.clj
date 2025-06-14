@@ -23,20 +23,29 @@
   (is (subject/unique-ioc-map-ids? (subject/make-ioc-seq))))
 
 (deftest duplicate-ioc-indicator-ids-test
-  (is (->> (subject/ioc-indicator-id-counts subject/ioc-seq)
+  (is (->> subject/ioc-seq
+           subject/ioc-indicator-id-frequencies
            vals
            (some #(> % 1)))))
 
+(deftest get-ioc-test
+  (is (->> subject/ioc-seq
+           (map :id)
+           (map subject/get-ioc)
+           (every? subject/ioc-map?))))
+
 (comment
-  (subject/get-ioc nil)
+  (subject/ioc-indicator-id-frequencies subject/ioc-seq)
 
-  (subject/ensure-ioc-seq
-   (subject/make-ioc-seq))
+  (def ids [700790756 2437645 888830013])
 
-  (subject/ioc-indicator-id-counts subject/ioc-seq)
+  (subject/get-ioc-indicators 700790756)
+  (subject/get-ioc-indicators 2437645)
+  (subject/get-ioc-indicators 888830013)
 
-  (first subject/ioc-seq)
-
+  (subject/get-indicators 2437645)
+  (subject/get-indicators 888830013)
+  
   (-> "alien-vault-otx-json/indicators.json"
       io/resource
       slurp
