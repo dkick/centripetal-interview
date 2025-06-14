@@ -1,0 +1,7 @@
+{:binding {:nl-separator? true}
+ :map     {:comma?        false
+           :force-nl?     true
+           :nl-separator? true}
+ :pair    {:nl-separator? true}
+ :style   [:community :justified :sort-dependencies :how-to-ns :sort-require
+           :respect-nl]}

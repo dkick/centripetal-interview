@@ -33,6 +33,7 @@ projects/**/pom.xml
 .lsp/.cache
 
 # clj-kondo
+.clj-kondo
 .clj-kondo/.cache
 
 # Calva VS Code Extension
