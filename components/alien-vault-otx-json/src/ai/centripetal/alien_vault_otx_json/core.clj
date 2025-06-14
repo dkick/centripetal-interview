@@ -147,7 +147,7 @@
   (->> (get-ioc-indicators indicator-id {:ioc-seq ioc-seq})
        (mapcat :indicators)))
 
-(defn get-ioc-indicators-of-type
+(defn get-ioc-indicators-by-type
   [indicator-type &
    {:keys [ioc-seq]
     :or   {ioc-seq ioc-seq}}]
@@ -162,9 +162,9 @@
    {:ioc        ?ioc
     :indicators !indicator}))
 
-(defn get-indicators-of-type
+(defn get-indicators-by-type
   [indicator-type &
    {:keys [ioc-seq]
     :or   {ioc-seq ioc-seq}}]
-  (->> (get-ioc-indicators-of-type indicator-type {:ioc-seq ioc-seq})
+  (->> (get-ioc-indicators-by-type indicator-type {:ioc-seq ioc-seq})
        (mapcat :indicators)))
