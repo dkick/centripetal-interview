@@ -68,7 +68,8 @@
         (str
          "the "
          project
-         " project's deps.edn file does not specify the :main namespace in its :uberjar alias")
+         " project's deps.edn file does not specify the :main namespace"
+         " in its :uberjar alias")
         {:aliases aliases})))
     (b/with-project-root
      project-root
