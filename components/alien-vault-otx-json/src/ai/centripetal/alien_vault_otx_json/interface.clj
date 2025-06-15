@@ -1,6 +1,6 @@
 (ns ai.centripetal.alien-vault-otx-json.interface
   (:require
-   [ai.centripetal.alien-vault-otx-json.core :as core]))
+    [ai.centripetal.alien-vault-otx-json.core :as core]))
 
 ;;; IOC: Indicator Of Compromise
 
@@ -17,3 +17,5 @@
 (def ioc-json-map? core/ioc-json-map?)
 
 (def ioc-map? core/ioc-map?)
+
+(def mapper core/mapper)
