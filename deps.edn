@@ -1,11 +1,15 @@
 {:aliases
  {:build {:deps {io.github.clojure/tools.build {:mvn/version "0.9.6"}
                  org.clojure/tools.deps        {:mvn/version "0.16.1281"}}}
+  :poly  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
+          :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}
+
   :dev   {:extra-paths ["development/src"]
           :extra-deps  {poly/alien-vault-otx-json
                         {:local/root "components/alien-vault-otx-json"}
 
+                        poly/web-server {:local/root "components/web-server"}
+
                         org.clojure/clojure {:mvn/version "1.11.1"}}}
-  :poly  {:main-opts  ["-m" "polylith.clj.core.poly-cli.core"]
-          :extra-deps {polylith/clj-poly {:mvn/version "0.2.21"}}}
-  :test  {:extra-paths []}}}
+  :test  {:extra-paths ["components/alien-vault-otx-json/test"
+                        "components/web-server/test"]}}}
