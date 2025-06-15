@@ -1,8 +1,8 @@
 (ns ai.centripetal.rest-api.core
   (:require
-    [ai.centripetal.alien-vault-otx-json.interface :as otx]
     [ai.centripetal.app-state.interface :refer [make-app-state]]
     [ai.centripetal.database.interface :refer [make-database]]
+    [ai.centripetal.rest-api.handlers :as handlers]
     [ai.centripetal.web-server.interface :refer [make-web-server]]
     [com.stuartsierra.component :as component]
     [compojure.coercions :refer [as-int]]
@@ -47,10 +47,6 @@
              ;; support load balancers
              (assoc-in [:proxy] true))))))
 
-(defn get-indicators [request])
-
-(defn get-indicators--id [request])
-
 ;; This is the main web handler, that builds routing middleware from
 ;; the app-state component. The handler is passed into the web-server
 ;; component.
@@ -80,9 +76,9 @@
   [app-state]
   (let-routes [wrap (middleware-stack app-state)]
     (GET "/indicators"             [type]
-      (wrap #'get-indicators))
+      (wrap #'handlers/get-indicators))
     (GET "/indicators/:id{[0-9]+}" [id :<< as-int]
-      (wrap #'get-indicators--id))
+      (wrap #'handlers/get-indicators--id))
     (route/resources "/")
     (route/not-found "Not Found")))
 
