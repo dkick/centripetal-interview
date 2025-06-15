@@ -105,19 +105,18 @@
   (ensure-ioc-seq
    (make-ioc-seq)))
 
-(defn get-ioc
+;!zprint {:format :skip}
+(defn get-ioc--id
   [ioc-id &
    {:keys [ioc-seq]
     :or   {ioc-seq ioc-seq}}]
   {:post [(ioc-map? %)]}
   ;; find ensures only one or none
-  (e/find
-   ioc-seq
-
-   (e/scan
-    {:id ~ioc-id
-     :as ?ioc})
-   ?ioc))
+  (e/find ioc-seq
+    (e/scan
+     {:id ~ioc-id
+      :as ?ioc})
+    ?ioc))
 
 (defn ioc-indicator-id-frequencies
   [ioc-seq]
@@ -126,46 +125,64 @@
        (map :id)
        frequencies))
 
+;!zprint {:format :skip}
 (defn get-ioc-indicators
-  [indicator-id &
+  [&
    {:keys [ioc-seq]
     :or   {ioc-seq ioc-seq}}]
-  (e/search
-   ioc-seq
-
-   (e/scan
-    {:indicators (e/scan
-                  {:id ~indicator-id
-                   :as !indicator})
-     :as         ?ioc})
-   {:ioc        ?ioc
-    :indicators !indicator}))
+  (e/search ioc-seq
+    (e/scan
+     {:indicators (e/scan
+                   {:as !indicator})
+      :as         ?ioc})
+    {:ioc        ?ioc
+     :indicators !indicator}))
 
 (defn get-indicators
+  [&
+   {:keys [ioc-seq]
+    :or   {ioc-seq ioc-seq}}]
+  (->> (get-ioc-indicators {:ioc-seq ioc-seq})
+       (mapcat :indicators)))
+
+;!zprint {:format :skip}
+(defn get-ioc-indicators--id
   [indicator-id &
    {:keys [ioc-seq]
     :or   {ioc-seq ioc-seq}}]
-  (->> (get-ioc-indicators indicator-id {:ioc-seq ioc-seq})
+  (e/search ioc-seq
+    (e/scan
+     {:indicators (e/scan
+                   {:id ~indicator-id
+                    :as !indicator})
+      :as         ?ioc})
+    {:ioc        ?ioc
+     :indicators !indicator}))
+
+(defn get-indicators--id
+  [indicator-id &
+   {:keys [ioc-seq]
+    :or   {ioc-seq ioc-seq}}]
+  (->> (get-ioc-indicators--id indicator-id {:ioc-seq ioc-seq})
        (mapcat :indicators)))
 
-(defn get-ioc-indicators-by-type
+;!zprint {:format :skip}
+(defn get-ioc-indicators--type
   [indicator-type &
    {:keys [ioc-seq]
     :or   {ioc-seq ioc-seq}}]
-  (e/search
-   ioc-seq
+  (e/search ioc-seq
+    (e/scan
+     {:indicators (e/scan
+                   {:type ~indicator-type
+                    :as   !indicator})
+      :as         ?ioc})
+    {:ioc        ?ioc
+     :indicators !indicator}))
 
-   (e/scan
-    {:indicators (e/scan
-                  {:type ~indicator-type
-                   :as   !indicator})
-     :as         ?ioc})
-   {:ioc        ?ioc
-    :indicators !indicator}))
-
-(defn get-indicators-by-type
+(defn get-indicators--type
   [indicator-type &
    {:keys [ioc-seq]
     :or   {ioc-seq ioc-seq}}]
-  (->> (get-ioc-indicators-by-type indicator-type {:ioc-seq ioc-seq})
+  (->> (get-ioc-indicators--type indicator-type {:ioc-seq ioc-seq})
        (mapcat :indicators)))

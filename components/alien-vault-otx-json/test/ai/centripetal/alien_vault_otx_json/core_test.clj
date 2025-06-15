@@ -33,12 +33,12 @@
 
   (def ids [700790756 2437645 888830013])
 
-  (subject/get-ioc-indicators 700790756)
-  (subject/get-ioc-indicators 2437645)
-  (subject/get-ioc-indicators 888830013)
+  (subject/get-ioc-indicators--id 700790756)
+  (subject/get-ioc-indicators--id 2437645)
+  (subject/get-ioc-indicators--id 888830013)
 
-  (subject/get-indicators 2437645)
-  (subject/get-indicators 888830013)
+  (subject/get-indicators--id 2437645)
+  (subject/get-indicators--id 888830013)
   
   (-> "alien-vault-otx-json/indicators.json"
       io/resource

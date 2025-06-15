@@ -6,13 +6,15 @@
 
 (def get-indicators core/get-indicators)
 
-(def get-indicators-by-type core/get-indicators-by-type)
+(def get-indicators--id core/get-indicators--id)
 
-(def get-ioc core/get-ioc)
+(def get-indicators--type core/get-indicators--type)
 
-(def get-ioc-indicators core/get-ioc-indicators)
+(def get-ioc core/get-ioc--id)
 
-(def get-ioc-indicators-by-type core/get-ioc-indicators-by-type)
+(def get-ioc-indicators--id core/get-ioc-indicators--id)
+
+(def get-ioc-indicators--type core/get-ioc-indicators--type)
 
 (def ioc-json-map? core/ioc-json-map?)
 
