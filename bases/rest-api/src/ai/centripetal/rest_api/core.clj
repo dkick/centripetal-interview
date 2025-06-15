@@ -116,7 +116,7 @@
     (-> (component/start (make-system port false))
         ;; then put it into the atom so we can get at it from a REPL
         ;; connected to this application:
-        (->> (reset! repl-system))
+        (as-> $ (reset! repl-system $))
         ;; then wait "forever" on the promise created:
         :web-server
         :shutdown
