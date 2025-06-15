@@ -100,6 +100,7 @@
          (unique-ioc-map-ids? ioc-seq)]}
   ioc-seq)
 
+;; TODO: Turn this into a component
 (def ioc-seq
   (ensure-ioc-seq
    (make-ioc-seq)))

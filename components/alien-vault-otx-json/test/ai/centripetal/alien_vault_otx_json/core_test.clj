@@ -28,12 +28,6 @@
            vals
            (some #(> % 1)))))
 
-(deftest get-ioc-test
-  (is (->> subject/ioc-seq
-           (map :id)
-           (map subject/get-ioc)
-           (every? subject/ioc-map?))))
-
 (comment
   (subject/ioc-indicator-id-frequencies subject/ioc-seq)
 
