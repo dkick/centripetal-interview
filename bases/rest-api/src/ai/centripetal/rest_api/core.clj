@@ -66,7 +66,6 @@
 ;; complicates things a bit (e.g. see doc string about let-routes vs
 ;; defroutes) and I wonder if it makes as much sense to do this in
 ;; Polylith.
-
 ;!zprint {:format :skip}
 (defn app-handler
   "Given the app-state component, return middleware for routing.
@@ -98,17 +97,20 @@
                   (make-database db-spec init-fn))
     :web-server (make-web-server #'app-handler port))))
 
-(defonce ^:private
-  ^{:doc "This exists so that if you run a socket REPL when you start
+(defonce
+  ^:private
+  ^{:doc
+    "This exists so that if you run a socket REPL when you start
   the application, you can get at the running system easily. See
   Corfield example from URL at the comment at the top of the file."}
-  repl-system (atom nil))
+  repl-system
+  (atom nil))
 
 (defn -main
   [& [port]]
   (let [-name "CENTRIPETAL_INTERVIEW_PORT"
-        port (or port (get (System/getenv) -name 8080))
-        port (cond-> port (string? port) Integer/parseInt)]
+        port  (or port (get (System/getenv) -name 8080))
+        port  (cond-> port (string? port) Integer/parseInt)]
     (println "Starting up on port" port)
     ;; start the web server and application:
     (-> (component/start (make-system port false))
@@ -116,4 +118,6 @@
         ;; connected to this application:
         (->> (reset! repl-system))
         ;; then wait "forever" on the promise created:
-        :web-server :shutdown deref)))
+        :web-server
+        :shutdown
+        deref)))
