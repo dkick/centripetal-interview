@@ -41,6 +41,21 @@
                count)
            (get $ioc-indicator-id-frequencies id)))))
 
+(def $ioc-indicator-type-frequencies
+  (sut/ioc-indicator-type-frequencies sut/ioc-seq))
+
+(deftest duplicate-ioc-indicator-type--test
+  (is (->> $ioc-indicator-type-frequencies
+           vals
+           (some #(> % 1)))))
+
+(deftest get-indicators-type--test
+  (doseq [-type (keys $ioc-indicator-type-frequencies)]
+    (is (= (-> -type
+               sut/get-indicators--type
+               count)
+           (get $ioc-indicator-type-frequencies -type)))))
+
 (comment
   (-> "alien-vault-otx-json/indicators.json"
       io/resource

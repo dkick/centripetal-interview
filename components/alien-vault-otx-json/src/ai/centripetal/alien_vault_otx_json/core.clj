@@ -125,6 +125,13 @@
        (map :id)
        frequencies))
 
+(defn ioc-indicator-type-frequencies
+  [ioc-seq]
+  (->> ioc-seq
+       (mapcat :indicators)
+       (map :type)
+       frequencies))
+
 ;!zprint {:format :skip}
 (defn get-ioc-indicators
   [&
