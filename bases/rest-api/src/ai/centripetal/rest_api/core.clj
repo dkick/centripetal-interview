@@ -102,6 +102,13 @@
   repl-system
   (atom nil))
 
+(comment
+  @repl-system
+  (reset! repl-system (make-system 8080))
+  (swap! repl-system component/start)
+  (swap! repl-system component/stop)
+  #_|)
+
 (defn -main
   [& [port]]
   (let [-name "CENTRIPETAL_INTERVIEW_PORT"
