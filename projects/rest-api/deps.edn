@@ -1,0 +1,18 @@
+{:deps {;; Component bricks
+        poly/alien-vault-otx-json
+        {:local/root
+         "../../components/alien-vault-otx-json"}
+
+        poly/app-state {:local/root "../../components/app-state"}
+        poly/database {:local/root "../../components/database"}
+        poly/web-server {:local/root "../../components/web-server"}
+
+        ;; Base bricks
+        poly/rest-api {:local/root "../../bases/rest-api"}
+
+        org.clojure/clojure {:mvn/version "1.12.1"}}
+
+ :aliases
+ {:test
+  {:extra-paths []
+   :extra-deps  {org.clojure/test.check {:mvn/version "1.1.1"}}}}}

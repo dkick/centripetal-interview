@@ -21,7 +21,9 @@
 
            org.clojure/clojure {:mvn/version "1.12.1"}}}
   :test  {:extra-paths
-          ["bases/rest-api/test"
-           "components/alien-vault-otx-json/test"
+          ["components/alien-vault-otx-json/test"
            "components/app-state/test"
-           "components/web-server/test"]}}}
+           "components/database/test"
+           "components/web-server/test"
+
+           "bases/rest-api/test"]}}}
