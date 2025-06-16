@@ -30,7 +30,8 @@
   "Given a task name and a project name, ensure the project
    exists and seems valid, and return the absolute path to it."
   [task project]
-  (let [project-root (str (System/getProperty "user.dir") "/projects/" project)]
+  (let [project-root (str (System/getProperty "user.dir")
+                          "/projects/" project)]
     (when-not (and project
                    (.exists (io/file project-root))
                    (.exists (io/file (str project-root "/deps.edn"))))
@@ -68,6 +69,7 @@
         (str
          "the "
          project
+
          " project's deps.edn file does not specify the :main namespace"
          " in its :uberjar alias")
         {:aliases aliases})))
