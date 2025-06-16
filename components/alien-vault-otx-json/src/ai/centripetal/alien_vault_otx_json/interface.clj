@@ -4,20 +4,64 @@
 
 ;;; IOC: Indicator Of Compromise
 
-(def get-indicators core/get-indicators)
+(defn get-indicators
+  "Return all :indicators from all IOC values as a flattened sequence"
+  [&
+   {:keys [ioc-seq]
+    :or   {ioc-seq core/ioc-seq}}]
+  (core/get-indicators {:ioc-seq ioc-seq}))
 
-(def get-indicators--id core/get-indicators--id)
+(defn get-indicators--id
+  "Return all :indicators for the indicator-id from all IOC values as a
+  flattened sequence"
+  [indicator-id &
+   {:keys [ioc-seq]
+    :or   {ioc-seq core/ioc-seq}}]
+  (core/get-indicators--id indicator-id ioc-seq))
 
-(def get-indicators--type core/get-indicators--type)
+(defn get-indicators--type
+  "Return all :indicators for the indicator-type from all IOC values as
+  a flattened sequence"
+  [indicator-type &
+   {:keys [ioc-seq]
+    :or   {ioc-seq core/ioc-seq}}]
+  (core/get-indicators--type indicator-type {:ioc-seq ioc-seq}))
 
-(def get-ioc core/get-ioc--id)
+(defn get-ioc--id
+  "Return all IOC values for the given ioc-id"
+  [ioc-id &
+   {:keys [ioc-seq]
+    :or   {ioc-seq core/ioc-seq}}]
+  (core/get-ioc--id ioc-id ioc-seq))
 
-(def get-ioc-indicators--id core/get-ioc-indicators--id)
+(defn get-ioc-indicators--id
+  "Return all :indicators for the indicator-id from all IOC values as
+  well as the IOC in which they were found"
+  [indicator-id &
+   {:keys [ioc-seq]
+    :or   {ioc-seq core/ioc-seq}}]
+  (core/get-ioc-indicators--id indicator-id ioc-seq))
 
-(def get-ioc-indicators--type core/get-ioc-indicators--type)
+(defn get-ioc-indicators--type
+  "Return all :indicators for the indicator-type from all IOC values as
+  well as the IOC in which they were found"
+  [indicator-type &
+   {:keys [ioc-seq]
+    :or   {ioc-seq core/ioc-seq}}]
+  (core/get-ioc-indicators--type indicator-type {:ioc-seq ioc-seq}))
 
-(def ioc-json-map? core/ioc-json-map?)
+(defn ioc-json-map?
+  "Returns true if x is an IOC map with strings as keys (JSON
+  format)"
+  [x]
+  (core/ioc-json-map? x))
 
-(def ioc-map? core/ioc-map?)
+(defn ioc-map?
+  "Returns true if x is an IOC map with keywords as keys (Clojure
+  format)"
+  [x]
+  (core/ioc-map? x))
 
-(def mapper core/mapper)
+(def mapper
+  "A Jsonista object mapper (see https://github.com/metosin/jsonista)"
+  core/mapper)

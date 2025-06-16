@@ -6,42 +6,42 @@
     [jsonista.core :as json]
     [malli.provider :as mp]))
 
-(deftest test-data-test
+(deftest test-data--test
   (is (some? (io/resource "alien-vault-otx-json/indicators.json"))))
 
-(deftest ioc-json-map-test
+(deftest ioc-json-map--test
   (is (-> "alien-vault-otx-json/indicators.json"
           io/resource
           slurp
           json/read-value
           (as-> $ (every? sut/ioc-json-map? $)))))
 
-(deftest ioc-map-test
+(deftest ioc-map--test
   (is (every? sut/ioc-map? (sut/make-ioc-seq))))
 
-(deftest unique-ioc-ids-test
+(deftest unique-ioc-ids--test
   (is (sut/unique-ioc-map-ids? (sut/make-ioc-seq))))
 
-(deftest duplicate-ioc-indicator-ids-test
-  (is (->> sut/ioc-seq
-           sut/ioc-indicator-id-frequencies
+(def $ioc-indicator-id-frequencies
+  (sut/ioc-indicator-id-frequencies sut/ioc-seq))
+
+(deftest duplicate-ioc-indicator-ids--test
+  (is (->> $ioc-indicator-id-frequencies
            vals
-           (some #(> % 1)))))
+           (some #(> % 1))))
+  (is (->> (map get
+                (repeat $ioc-indicator-id-frequencies)
+                [2437645 888830013])
+           (every? #(> % 1)))))
+
+(deftest get-indicators--id--test
+  (doseq [id [700790756 2437645 888830013]]
+    (is (= (-> id
+               sut/get-indicators--id
+               count)
+           (get $ioc-indicator-id-frequencies id)))))
 
 (comment
-  (sut/ioc-indicator-id-frequencies sut/ioc-seq)
-
-  (sut/get-indicators)
-  
-  (def ids [700790756 2437645 888830013])
-
-  (sut/get-ioc-indicators--id 700790756)
-  (sut/get-ioc-indicators--id 2437645)
-  (sut/get-ioc-indicators--id 888830013)
-
-  (sut/get-indicators--id 2437645)
-  (sut/get-indicators--id 888830013)
-  
   (-> "alien-vault-otx-json/indicators.json"
       io/resource
       slurp

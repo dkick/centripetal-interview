@@ -17,5 +17,3 @@ excellent, very relevant examples:
 
 * https://github.com/furkan3ayraktar/clojure-polylith-realworld-example-app
 * https://github.com/seancorfield/usermanager-example
-
-

@@ -100,7 +100,7 @@
          (unique-ioc-map-ids? ioc-seq)]}
   ioc-seq)
 
-;; TODO: Turn this into a component
+;; TODO: Turn this into a Stuart Sierra component
 (def ioc-seq
   (ensure-ioc-seq
    (make-ioc-seq)))
