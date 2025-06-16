@@ -22,5 +22,8 @@
 (defn get-indicators--id
   [request]
   (json-resonse
-   (let [id (get-in request [:params :id])]
+   (let [id (get-in request [:params :id])
+         ;; I was expecting Compojure to have already coerced this but
+         ;; it doesn't seem to be happening
+         id (cond-> id (string? id) Integer/parseInt)]
      (otx/get-indicators--id id))))
