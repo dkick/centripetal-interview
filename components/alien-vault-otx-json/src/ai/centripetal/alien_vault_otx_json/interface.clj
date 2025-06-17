@@ -1,4 +1,35 @@
 (ns ai.centripetal.alien-vault-otx-json.interface
+  "The assignment mentions a document in three different places:
+  
+    3. Create a REST endpoint component that returns a document by its
+       ID.
+       a. GET /indicators/:id
+
+    4. Add endpoints to return all documents or to find a document by
+       its type.
+       a. GET /indicators
+       b. GET /indicators?type=IPv4
+  
+    5. There should be a component that does a lookup on a JSON
+       file (array of documents).
+  
+       a. Treat the JSON file like a database with many records (array
+          of documents). Attached is a JSON file you can use which
+          contains 100 Indicators of Compromise (IOCs) from AlienVault
+          OTX.
+
+  Each IOC has an ID and a nested vector on Indicators, each with its
+  own ID. The name of the 'indicators' REST enpoint seems to imply a
+  lookup for only the nested Indicators but those IDs are not
+  unique. Since the JSON file is an array of IOC documents, one might
+  image use cases in which the IOC data associated with various
+  Indicators might also be of interest.
+
+  This component provides /get-indicators*/ interfaces meant for the
+  REST 'indicators' endpoints, which only returns Indicators; but also
+  /get-ioc-indicators*/ a map with an ':ioc' key, with the original
+  IOC in which the Indicators were found, and ':indicators' with only
+  the Indicators matching the criteria."
   (:require
     [ai.centripetal.alien-vault-otx-json.core :as core]))
 
